@@ -8,10 +8,13 @@
 
 #include <iostream>
 #include <Windows.h>
+#include "Tools/HandleTools.hpp"
 
 using namespace std;
 
 int main() {
 	cout << "Balec" << endl; // prints Balec
+	HANDLE mumbleHandle = openHandle("mumble.exe");
+	cout << "HANDLE: " << mumbleHandle << endl;
 	return 0;
 }

@@ -5,12 +5,11 @@
  *      Author: Nous
  */
 
-#include <iostream>
-#include <Windows.h>
+#include "HandleTools.hpp"
 
 // Example of algorithm to open an handle to a specific process based on his name.
 // Returns the HANDLE to the process. (INVALID_HANDLE_VALUE if not found)
-HANDLE OpenHandle(const std::string& ProcessName)
+HANDLE openHandle(const std::string& ProcessName)
 {
     // First of all we create a snapshot handle specific for processes
     // (notice the usage of TH32CS_SNAPPROCESS) so we are able to call Process32First/Next
@@ -39,6 +38,7 @@ HANDLE OpenHandle(const std::string& ProcessName)
             CloseHandle(hSnapshot);
             // Return the handle opened to the process with OpenProcess
             // (Notice the usage of PROCESS_ALL_ACCESS flag in order to grant read/write privileges)
+            std::cout << "First processed looped through: " << ProcEntry.szExeFile << std::endl;
             return OpenProcess(PROCESS_ALL_ACCESS, FALSE, ProcEntry.th32ProcessID);
         }
     }
@@ -64,6 +64,7 @@ HANDLE OpenHandle(const std::string& ProcessName)
             CloseHandle(hSnapshot);
             // Return the handle opened to the process with OpenProcess
             // (Notice the usage of PROCESS_ALL_ACCESS flag in order to grant read/write privileges)
+            std::cout << "Next processed looped through: " << ProcEntry.szExeFile << std::endl;
             return OpenProcess(PROCESS_ALL_ACCESS, FALSE, ProcEntry.th32ProcessID);
         }
     }
