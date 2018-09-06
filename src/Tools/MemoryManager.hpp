@@ -14,43 +14,43 @@
 #include <tlhelp32.h>
 
 class ModuleWrapper {
-private :
-	MODULEENTRY32* module;
+private:
+   MODULEENTRY32* module;
 public:
-	ModuleWrapper(MODULEENTRY32* module);
-	MODULEENTRY32* getModule();
-	bool operator<(const ModuleWrapper& comp) const;
+   ModuleWrapper(MODULEENTRY32* module);
+   MODULEENTRY32* getModule();
+   bool operator<(const ModuleWrapper& comp) const;
 };
 
 class MemoryManager {
 private:
-	// Private members: We are going to setup some getters later on!
-	HANDLE m_hProcess; // The HANDLE to the process to attach
-	DWORD m_dwProcessId; // The Process Id of the process to attach
-	std::set<ModuleWrapper> m_Modules; // std::vector containing all the modules we grab from the process
+   // Private members: We are going to setup some getters later on!
+   HANDLE m_hProcess; // The HANDLE to the process to attach
+   DWORD m_dwProcessId; // The Process Id of the process to attach
+   std::set<ModuleWrapper> m_Modules; // std::vector containing all the modules we grab from the process
 
 public:
-	MemoryManager();
-	//MemoryManager(const std::string& strProcessName);
+   MemoryManager();
+   //MemoryManager(const std::string& strProcessName);
 
-	// Attach to a process based on strProcessName
-	// Returns true on success, false on failure
-	bool Attach(const std::string& strProcessName);
+   // Attach to a process based on strProcessName
+   // Returns true on success, false on failure
+   bool attach(const std::string& strProcessName);
 
-	// Grabs a module and adds it to m_Modules if found based on strModuleName
-	// Returns true on success, false on failure
-	bool GrabModule(const std::string& strModuleName);
+   // Grabs a module and adds it to m_Modules if found based on strModuleName
+   // Returns true on success, false on failure
+   bool grabModule(const std::string& strModuleName);
 
-	template <class T>
-	bool Read(DWORD dwAddress, T& Value);
-	template <class T>
-	bool Write(DWORD dwAddress, const T& Value);
+   //template<class T>
+   bool readMem(DWORD dwAddress, DWORD& outputSlot);
+   //template<class T>
+   bool writeMem(DWORD dwAddress, const DWORD& inputValue);
 
-	HANDLE getHandle();
-	DWORD getProcId();
-	std::set<ModuleWrapper> getModules();
+   HANDLE getHandle();
+   DWORD getProcId();
+   std::set<ModuleWrapper> getModules();
 
-	void readAll();
+   void readAll();
 };
 
 #endif /* TOOLS_MEMORYMANAGER_HPP_ */
