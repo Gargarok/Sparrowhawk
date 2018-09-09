@@ -99,22 +99,6 @@ bool MemoryManager::grabModule(const std::string& strModuleName) {
    return false;
 }
 
-// Read a value from memory and put it in outputSlot
-// Returns true on success, false on failure
-//template<class T>
-bool MemoryManager::readMem(DWORD dwAddress, DWORD& outputSlot) {
-   return ReadProcessMemory(m_hProcess, reinterpret_cast<LPVOID>(dwAddress), reinterpret_cast<PVOID>(outputSlot), sizeof(DWORD),
-         NULL) == TRUE;
-}
-
-// Write a Value in memory
-// Returns true on success, false on failure
-//template<class T>
-bool MemoryManager::writeMem(DWORD dwAddress, const DWORD& inputValue) {
-   return WriteProcessMemory(m_hProcess, reinterpret_cast<LPVOID>(dwAddress), reinterpret_cast<PVOID>(inputValue), sizeof(DWORD),
-   NULL) == TRUE;
-}
-
 HANDLE MemoryManager::getHandle() {
    return m_hProcess;
 }

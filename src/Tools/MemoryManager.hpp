@@ -41,10 +41,19 @@ public:
    // Returns true on success, false on failure
    bool grabModule(const std::string& strModuleName);
 
-   //template<class T>
-   bool readMem(DWORD dwAddress, DWORD& outputSlot);
-   //template<class T>
-   bool writeMem(DWORD dwAddress, const DWORD& inputValue);
+   template<class T>
+   bool readMem(DWORD dwAddress, T& outputSlot) {
+      return ReadProcessMemory(m_hProcess, reinterpret_cast<LPVOID>(dwAddress),
+            reinterpret_cast<PVOID>(outputSlot), sizeof(T),
+            NULL) == TRUE;
+   }
+
+   template<class T>
+   bool writeMem(DWORD dwAddress, const T& inputValue) {
+      return WriteProcessMemory(m_hProcess, reinterpret_cast<LPVOID>(dwAddress), inputValue,
+            sizeof(T),
+            NULL) == TRUE;
+   }
 
    HANDLE getHandle();
    DWORD getProcId();
