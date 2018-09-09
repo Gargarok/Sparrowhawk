@@ -11,8 +11,12 @@ void processClientModule(MemoryManager* memManager, MODULEENTRY32* clientModule)
    // Get module base address
    DWORD dwClientBase = reinterpret_cast<DWORD>(clientModule -> modBaseAddr);
 
-   DWORD dwRadarBase = 0;
-   DWORD& dwRadarBaseAddress = dwRadarBase;
-   memManager -> readMem(dwClientBase + 0x5071E6C, dwRadarBase);
+   //DWORD dwRadarBase = 0;
+   //memManager -> readMem(dwClientBase + RADAR_BASE_OFFSET, dwRadarBase);
+   //std::cout << "DWRADARBASE VALUE: " << dwRadarBase << std::endl;
+
+   DWORD dwLocalPlayer = 0;
+   memManager -> readMem(dwClientBase + LOCAL_PLAYER_OFFSET, dwLocalPlayer);
+   std::cout << "LOCAL PLAYER VALUE: " << dwLocalPlayer << std::endl;
 }
 

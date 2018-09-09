@@ -13,6 +13,7 @@
 #include <MemoryManager.hpp>
 
 #define RADAR_BASE_OFFSET 0x5071E6C
+#define LOCAL_PLAYER_OFFSET 0xC6086C
 
 void processClientModule(MemoryManager* memManager, MODULEENTRY32* clientModule);
 

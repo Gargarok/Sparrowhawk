@@ -18,11 +18,16 @@ int main() {
    // debug
    //memManager -> readAll();
 
+   std::cout << "Looking for process..." << std::endl;
+
    if (memManager->attach("csgo.exe")) {
+      std::cout << "Pocess found !" << std::endl;
       if (memManager->grabModule("client_panorama.dll")) {
+         std::cout << "Module found within CS GO !" << std::endl;
          for (ModuleWrapper modWrapper : memManager->getModules()) {
             MODULEENTRY32* clientModule = modWrapper.getModule();
             processClientModule(memManager, clientModule);
+
          }
       }
       else {
